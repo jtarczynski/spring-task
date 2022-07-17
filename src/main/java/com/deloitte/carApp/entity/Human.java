@@ -1,15 +1,16 @@
 package com.deloitte.carApp.entity;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
 @Table(name = "humans")
 @Data
+@Entity
+@SuperBuilder
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "Human_Type")
 public abstract class Human {

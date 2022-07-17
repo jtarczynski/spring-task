@@ -9,6 +9,7 @@ import com.deloitte.carApp.repository.FacilityRepository;
 import com.deloitte.carApp.repository.RentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,11 +28,13 @@ public class RentService {
         return rentRepository.findAll();
     }
 
-    public void saveRentById(Long id) {
-        rentRepository.save(findRentById(id));
+    @Transactional
+    public void saveRent(Rent rent) {
+        rentRepository.save(rent);
     }
 
-    public void deleteRentById(Long id) {
+    @Transactional
+    public void deleteRent(Long id) {
         rentRepository.deleteById(id);
     }
 }

@@ -7,6 +7,7 @@ import com.deloitte.carApp.repository.AddressRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,11 +27,13 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
-    public void saveAddressById(Long id) {
+    @Transactional
+    public void saveAddress(Long id) {
         addressRepository.save(findAddressById(id));
     }
 
-    public void deleteAddressById(Long id) {
+    @Transactional
+    public void deleteAddress(Long id) {
         addressRepository.deleteById(id);
     }
 }

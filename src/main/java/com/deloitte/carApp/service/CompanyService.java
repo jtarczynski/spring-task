@@ -7,12 +7,14 @@ import com.deloitte.carApp.repository.CompanyRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class CompanyService {
+
     private CompanyRepository companyRepository;
 
     public Company findCompanyById(Long id) {
@@ -25,11 +27,13 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public void saveCompanyById(Long id) {
+    @Transactional
+    public void saveCompany(Long id) {
         companyRepository.save(findCompanyById(id));
     }
 
-    public void deleteCompanyById(Long id) {
+    @Transactional
+    public void deleteCompany(Long id) {
         companyRepository.deleteById(id);
     }
 }

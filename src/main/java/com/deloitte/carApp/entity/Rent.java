@@ -26,8 +26,8 @@ public class Rent {
     private LocalDate rentalDate;
 
     @ManyToOne
-    @JoinColumn(name = "car")
-    private Car car;
+    @JoinColumn(name = "rentCar")
+    private Car rentCar;
 
     @OneToOne
     private Client client;

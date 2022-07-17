@@ -40,13 +40,11 @@ public class Car {
     @Column(name = "milleage")
     private int mileage;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "rentCar", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ToString.Exclude
     private List<Rent> rents;
 
-    /*
-    TODO > think about fetch type
-     */
-    @ManyToMany(mappedBy = "workerCars", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "workerCars", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Worker> workers;
 
     @OneToOne

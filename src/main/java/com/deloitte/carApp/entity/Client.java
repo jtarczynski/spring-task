@@ -1,17 +1,17 @@
 package com.deloitte.carApp.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue(value = HumanType.Values.CLIENT)
-@Table(name = "clients")
 public class Client extends Human {
 
     @Id

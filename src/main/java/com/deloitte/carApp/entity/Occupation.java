@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Occupation {
+
     SALES_MAN("SALES_MAN"),
     MANAGER("MANAGER"),
     ACCOUNTANT("ACCOUNTANT");

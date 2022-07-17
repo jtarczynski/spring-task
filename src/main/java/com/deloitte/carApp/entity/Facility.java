@@ -2,6 +2,8 @@ package com.deloitte.carApp.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,10 +28,16 @@ public class Facility {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     private Address address;
 
-    @OneToMany(mappedBy = "facility", fetch = FetchType.LAZY)
+    /*
+        Why does it resolve Lazy init? When I had eager it was a bag problem, even though I got one EAGER in this class,
+        when it was lazy I got lazy init.
+     */
+    @OneToMany(mappedBy = "facility")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ToString.Exclude
     private List<Worker> workers;
 
 }

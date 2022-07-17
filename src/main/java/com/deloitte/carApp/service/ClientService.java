@@ -7,6 +7,7 @@ import com.deloitte.carApp.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class ClientService {
 
     private ClientRepository clientRepository;
 
-    public Client findClientById(Long id) {
+    public Client findClient(Long id) {
         return clientRepository
                 .findById(id)
                 .orElseThrow(() -> new AppException(Error.CAR_NOT_FOUND));
@@ -26,11 +27,13 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public void saveClientById(Long id) {
-        clientRepository.save(findClientById(id));
+    @Transactional
+    public void saveClient(Client client) {
+        clientRepository.save(client);
     }
 
-    public void deleteClientById(Long id) {
+    @Transactional
+    public void deleteClient(Long id) {
         clientRepository.deleteById(id);
     }
 }
