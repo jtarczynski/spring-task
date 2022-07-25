@@ -1,7 +1,6 @@
 package com.deloitte.carApp.facility.entity;
 
 
-import com.deloitte.carApp.address.entity.Address;
 import com.deloitte.carApp.worker.entity.Worker;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
@@ -16,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "facilities")
-public class Facility {
+public class  Facility {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,10 +26,10 @@ public class Facility {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @Embedded
     private Address address;
 
     /*
@@ -39,7 +38,6 @@ public class Facility {
      */
     @OneToMany(mappedBy = "facility")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ToString.Exclude
     private List<Worker> workers;
 
 }

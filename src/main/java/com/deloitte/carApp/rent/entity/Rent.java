@@ -28,6 +28,14 @@ public class Rent {
     @Column(name = "rental_date")
     private LocalDate rentalDate;
 
+    /*
+    *  How to decide and manipulate data that we want to show or serialize?
+    *  For example if we want to display rent we would get all the data displayed along with the relationships below.
+    *  We could annotate something with @JsonIgnore, but it seems not to be a good practice. Moreover even though
+    *  we want to display for example startFacility field, but we don't want to display workers of the facility
+    *  how can we do it? Assuming that we can't use @JsonIgnore on the workers in facility entity because we need it
+    *  somewhere else
+    * */
     @ManyToOne
     @JoinColumn(name = "rentCar")
     private Car rentCar;

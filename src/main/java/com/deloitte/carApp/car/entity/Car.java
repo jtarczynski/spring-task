@@ -3,6 +3,7 @@ package com.deloitte.carApp.car.entity;
 import com.deloitte.carApp.client.entity.Client;
 import com.deloitte.carApp.rent.entity.Rent;
 import com.deloitte.carApp.worker.entity.Worker;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,7 +45,7 @@ public class Car {
     private int mileage;
 
     @OneToMany(mappedBy = "rentCar", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @ToString.Exclude
+    @JsonIgnore
     private List<Rent> rents;
 
     @ManyToMany(mappedBy = "workerCars", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

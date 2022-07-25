@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  postgres_db:
+    image: 'postgres'
+    container_name: postgres_db
+    volumes:
+      - ./postgres_data:/var/lub/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=car_app_db
+    networks:
+      - net
+  backend:
+    build: .
+    container_name: backend
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres_db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/car_app_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - net
+networks:
+  net:

@@ -1,13 +1,14 @@
 package com.deloitte.carApp.facility.dto;
 
-
-import com.deloitte.carApp.address.entity.Address;
+import com.deloitte.carApp.facility.entity.Address;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class CreateFacilityDto {
+@Setter
+public class FacilityDto {
+
+    private Long id;
 
     private String phoneNumber;
 

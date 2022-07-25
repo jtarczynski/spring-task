@@ -1,10 +1,11 @@
 package com.deloitte.carApp.worker.service;
 
+import com.deloitte.carApp.car.entity.Car;
 import com.deloitte.carApp.facility.entity.Facility;
 import com.deloitte.carApp.worker.entity.Worker;
 import com.deloitte.carApp.exception.AppException;
 import com.deloitte.carApp.exception.Error;
-import com.deloitte.carApp.worker.dto.GetWorkerDto;
+import com.deloitte.carApp.worker.dto.WorkerDto;
 import com.deloitte.carApp.worker.repository.WorkerRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -27,17 +28,21 @@ public class WorkerService {
                 .orElseThrow(() -> new AppException(Error.WORKER_NOT_FOUND));
     }
 
-    public GetWorkerDto getWorkerDto(Long id) {
-        Worker worker = workerRepository
-                .findById(id)
-                .orElseThrow(() -> new AppException(Error.WORKER_NOT_FOUND));
-        return modelMapper.map(worker, GetWorkerDto.class);
+    public WorkerDto getWorkerDto(Long id) {
+        return modelMapper.map(findWorker(id), WorkerDto.class);
     }
 
-    public List<GetWorkerDto> findAllWorkers() {
+    public List<WorkerDto> findAllWorkers() {
         return workerRepository.findAll()
                 .stream()
-                .map(worker -> modelMapper.map(worker, GetWorkerDto.class))
+                .map(worker -> modelMapper.map(worker, WorkerDto.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<WorkerDto> findWorkersByCar(Car car) {
+        return workerRepository.findWorkersByCar(car)
+                .stream()
+                .map(worker -> modelMapper.map(worker, WorkerDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +56,9 @@ public class WorkerService {
     }
 
     @Transactional
-    public void deleteWorker(Long id) {
-        workerRepository.deleteById(id);
+    public void removeWorkerFromFacility(Long workerId) {
+        Worker worker = findWorker(workerId);
+        worker.setFacility(null);
+        workerRepository.save(worker);
     }
 }

@@ -31,7 +31,7 @@ public class Company {
     @OneToMany
     private List<Car> cars;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "year")

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workers view</title>
+    <link th:href="@{/styles/workersView.css}" rel="stylesheet" />
+</head>
+        <div class="workers-container">
+            <ul th:each="worker : ${workers}">
+                <li th:text="'Worker id: '+ ${worker.getId()}">id</li>
+                <li th:text="'Worker name: '+ ${worker.getName()}">name</li>
+                <li th:text="'Worker surname: '+ ${worker.getSurname()}">surname</li>
+                <li th:text="'Worker occupation: '+ ${worker.getOccupation()}">occupation</li>
+                <li th:text="'Worker phone number: '+ ${worker.getPhoneNumber()}">phoneNumber</li>
+            </ul>
+        </div>
+</html>

@@ -1,11 +1,11 @@
-package com.deloitte.carApp.address.dto;
+package com.deloitte.carApp.facility.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateAdressDto {
+public class AddressDto {
 
     private String country;
 

@@ -1,21 +1,20 @@
-package com.deloitte.carApp.worker.dto;
+package com.deloitte.carApp.client.dto;
 
-import com.deloitte.carApp.address.entity.Address;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
-@Setter
 @Getter
-public class GetWorkerDto {
+@Setter
+public class ClientDto {
 
     private Long id;
 
     private String occupation;
 
-    private Address address;
-
+    @Pattern(regexp = "\\d{10}|(?:\\d{3}-){2}\\d{3}")
     private String phoneNumber;
 
     private String name;
@@ -23,5 +22,7 @@ public class GetWorkerDto {
     private String surname;
 
     private LocalDate birthDate;
+
+    private String cardNumber;
 
 }

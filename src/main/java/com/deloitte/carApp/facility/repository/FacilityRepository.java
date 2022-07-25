@@ -14,7 +14,11 @@ public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
     @Query("SELECT w FROM Facility f " +
             "JOIN Worker w on w.facility = f " +
-            "WHERE w.workerCars IN ?1")
+            "WHERE ?1 MEMBER OF w.workerCars")
     List<Worker> findAllFacilityWorkersByCar(Car car);
+
+    @Query("SELECT w FROM Facility f " +
+            "JOIN Worker w on w.facility = ?1")
+    List<Worker> findAllFacilityWorkers(Facility facility);
 
 }

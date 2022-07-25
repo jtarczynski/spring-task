@@ -1,19 +1,22 @@
 package com.deloitte.carApp.worker.dto;
 
-import com.deloitte.carApp.address.entity.Address;
+
+import javax.validation.constraints.Pattern;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
 @Setter
-public class CreateWorkerDto {
+@Getter
+public class WorkerDto {
+
+    private Long id;
 
     private String occupation;
 
-    private Address address;
-
+    @Pattern(regexp = "\\d{10}|(?:\\d{3}-){2}\\d{3}")
     private String phoneNumber;
 
     private String name;

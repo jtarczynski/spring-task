@@ -1,4 +1,4 @@
-package com.deloitte.carApp.address.entity;
+package com.deloitte.carApp.facility.entity;
 
 
 import lombok.*;
@@ -6,18 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "addresses")
+@Embeddable
 public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Setter(AccessLevel.NONE)
-    @Column(name = "id")
-    private Long id;
 
     @Column(name = "country")
     private String country;

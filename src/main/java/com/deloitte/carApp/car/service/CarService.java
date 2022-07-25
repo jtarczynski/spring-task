@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -21,11 +22,6 @@ public class CarService {
     private CarRepository carRepository;
 
     private ModelMapper modelMapper;
-
-    public GetCarDto getCarDto(Long id) {
-        Car car = carRepository.findById(id).orElseThrow(() -> new AppException(Error.CAR_NOT_FOUND));
-        return modelMapper.map(car, GetCarDto.class);
-    }
 
     public Car findCar(Long id) {
         return carRepository.findById(id).orElseThrow(() -> new AppException(Error.CAR_NOT_FOUND));
@@ -38,20 +34,28 @@ public class CarService {
         return modelMapper.map(car, GetCarDto.class);
     }
 
-    public List<Car> findCarsByWorker(Worker worker) {
-        return carRepository.findCarsByWorker(worker);
+    public List<GetCarDto> findCarsByWorker(Worker worker) {
+        return carRepository
+                .findCarsByWorker(worker)
+                .stream()
+                .map(car -> modelMapper.map(car, GetCarDto.class))
+                .collect(Collectors.toList());
     }
 
     public List<GetCarDto> findAllCars() {
-        return carRepository.findAll()
+        return carRepository
+                .findAll()
                 .stream()
                 .map(car -> modelMapper.map(car, GetCarDto.class))
-                .toList();
+                .collect(Collectors.toList());
     }
 
-    @Transactional
-    public Car saveCar(Car car) {
-        return carRepository.save(car);
+    public List<GetCarDto> findCarsRentedMoreThan10Times() {
+        return carRepository
+                .findCarsRentedMoreThan10Times()
+                .stream()
+                .map(car -> modelMapper.map(car, GetCarDto.class))
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -59,17 +63,20 @@ public class CarService {
         return carRepository.save(modelMapper.map(createCarDto, Car.class));
     }
 
-    @Transactional
-    public Car assignWorkerToCar(Car car, Worker worker) {
-        car.getWorkers().add(worker);
-        return carRepository.save(car);
-    }
-
-    public Car updateCar(Car car) {
+    public Car updateCar(Long carId, CreateCarDto createCarDto) {
+        Car car = findCar(carId);
+        car.setCarType(createCarDto.getCarType());
+        car.setBrand(createCarDto.getBrand());
+        car.setColor(createCarDto.getColor());
+        car.setEngine(createCarDto.getEngine());
+        car.setMileage(createCarDto.getMileage());
+        car.setPower(createCarDto.getPower());
+        car.setProductionYear(createCarDto.getProductionYear());
         return carRepository.save(car);
     }
 
     public void deleteCar(Long id) {
         carRepository.deleteById(id);
     }
+
 }

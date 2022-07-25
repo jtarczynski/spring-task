@@ -4,6 +4,7 @@ import com.deloitte.carApp.car.entity.Car;
 import com.deloitte.carApp.facility.entity.Facility;
 import com.deloitte.carApp.human.entity.Human;
 import com.deloitte.carApp.human.entity.HumanType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @Entity
 @SuperBuilder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -32,11 +34,11 @@ public class Worker extends Human {
     @JoinTable(name = "workerCar", joinColumns =
     @JoinColumn(name = " worker_id"), inverseJoinColumns =
     @JoinColumn(name = "car_id"))
-    @ToString.Exclude /* When we need that if we want to access this field too somewhere */
+    @JsonIgnore
     List<Car> workerCars;
 
     @ManyToOne
     @JoinColumn(name = "facility_id")
+    @JsonIgnore
     Facility facility;
-
 }
