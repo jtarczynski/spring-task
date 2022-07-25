@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -40,7 +41,7 @@ public class WorkerController {
     }
 
     @PostMapping("add-worker")
-    public ResponseEntity<Worker> addWorker(@RequestBody WorkerDto workerDto) {
+    public ResponseEntity<Worker> addWorker(@Valid @RequestBody WorkerDto workerDto) {
         return ResponseEntity.ok(humanService.saveWorker(workerDto));
     }
 }

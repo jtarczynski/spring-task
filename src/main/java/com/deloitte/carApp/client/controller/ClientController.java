@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class ClientController {
     }
 
     @PostMapping("add-client")
-    public ResponseEntity<Client> addClient(@RequestBody ClientDto clientDto) {
+    public ResponseEntity<Client> addClient(@Valid @RequestBody ClientDto clientDto) {
         return ResponseEntity.ok(humanService.saveClient(clientDto));
     }
 
