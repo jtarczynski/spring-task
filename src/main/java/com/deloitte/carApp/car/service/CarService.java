@@ -1,7 +1,6 @@
 package com.deloitte.carApp.car.service;
 
-import com.deloitte.carApp.car.dto.CreateCarDto;
-import com.deloitte.carApp.car.dto.GetCarDto;
+import com.deloitte.carApp.car.dto.CarDto;
 import com.deloitte.carApp.car.repository.CarRepository;
 import com.deloitte.carApp.car.entity.Car;
 import com.deloitte.carApp.worker.entity.Worker;
@@ -27,51 +26,54 @@ public class CarService {
         return carRepository.findById(id).orElseThrow(() -> new AppException(Error.CAR_NOT_FOUND));
     }
 
-    public GetCarDto findCarByCarTypeAndBrand(String type, String brand) {
+    /*
+        Should I return Dto or entity in all these methods?
+     */
+    public CarDto findCarByCarTypeAndBrand(String type, String brand) {
         Car car = carRepository
                 .findCarByCarTypeAndBrand(type, brand)
                 .orElseThrow(() -> new AppException(Error.CAR_NOT_FOUND));
-        return modelMapper.map(car, GetCarDto.class);
+        return modelMapper.map(car, CarDto.class);
     }
 
-    public List<GetCarDto> findCarsByWorker(Worker worker) {
+    public List<CarDto> findCarsByWorker(Worker worker) {
         return carRepository
                 .findCarsByWorker(worker)
                 .stream()
-                .map(car -> modelMapper.map(car, GetCarDto.class))
+                .map(car -> modelMapper.map(car, CarDto.class))
                 .collect(Collectors.toList());
     }
 
-    public List<GetCarDto> findAllCars() {
+    public List<CarDto> findAllCars() {
         return carRepository
                 .findAll()
                 .stream()
-                .map(car -> modelMapper.map(car, GetCarDto.class))
+                .map(car -> modelMapper.map(car, CarDto.class))
                 .collect(Collectors.toList());
     }
 
-    public List<GetCarDto> findCarsRentedMoreThan10Times() {
+    public List<CarDto> findCarsRentedMoreThan10Times() {
         return carRepository
                 .findCarsRentedMoreThan10Times()
                 .stream()
-                .map(car -> modelMapper.map(car, GetCarDto.class))
+                .map(car -> modelMapper.map(car, CarDto.class))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public Car saveCar(CreateCarDto createCarDto) {
-        return carRepository.save(modelMapper.map(createCarDto, Car.class));
+    public Car saveCar(CarDto carDto) {
+        return carRepository.save(modelMapper.map(carDto, Car.class));
     }
 
-    public Car updateCar(Long carId, CreateCarDto createCarDto) {
+    public Car updateCar(Long carId, CarDto carDto) {
         Car car = findCar(carId);
-        car.setCarType(createCarDto.getCarType());
-        car.setBrand(createCarDto.getBrand());
-        car.setColor(createCarDto.getColor());
-        car.setEngine(createCarDto.getEngine());
-        car.setMileage(createCarDto.getMileage());
-        car.setPower(createCarDto.getPower());
-        car.setProductionYear(createCarDto.getProductionYear());
+        car.setCarType(carDto.getCarType());
+        car.setBrand(carDto.getBrand());
+        car.setColor(carDto.getColor());
+        car.setEngine(carDto.getEngine());
+        car.setMileage(carDto.getMileage());
+        car.setPower(carDto.getPower());
+        car.setProductionYear(carDto.getProductionYear());
         return carRepository.save(car);
     }
 

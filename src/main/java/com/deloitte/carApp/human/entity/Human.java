@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Table(name = "humans")
-@Data
 @Entity
 @SuperBuilder
 @NoArgsConstructor

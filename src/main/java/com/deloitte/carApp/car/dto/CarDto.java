@@ -4,7 +4,10 @@ import lombok.*;
 
 @Getter
 @Setter
-public class GetCarDto {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CarDto {
 
     private Long id;
 

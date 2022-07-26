@@ -18,7 +18,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     @Query("SELECT c FROM Car c WHERE ?1 MEMBER OF c.workers")
     List<Car> findCarsByWorker(Worker worker);
 
-    @Query("SELECT c FROM Car c WHERE c.rents.size > 10")
+    @Query("SELECT c FROM Car c WHERE c.rents.size >= 10")
     List<Car> findCarsRentedMoreThan10Times();
 
 }

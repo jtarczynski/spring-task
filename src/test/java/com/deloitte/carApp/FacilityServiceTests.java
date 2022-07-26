@@ -15,8 +15,4 @@ public class FacilityServiceTests {
     @Autowired
     private FacilityService facilityService;
 
-
-
-
-
 }

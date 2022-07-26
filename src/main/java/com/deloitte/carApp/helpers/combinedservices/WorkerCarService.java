@@ -1,6 +1,6 @@
 package com.deloitte.carApp.helpers.combinedservices;
 
-import com.deloitte.carApp.car.dto.GetCarDto;
+import com.deloitte.carApp.car.dto.CarDto;
 import com.deloitte.carApp.car.entity.Car;
 import com.deloitte.carApp.car.service.CarService;
 import com.deloitte.carApp.worker.dto.WorkerDto;
@@ -32,7 +32,7 @@ public class WorkerCarService {
         return worker;
     }
 
-    public List<GetCarDto> findCarsByWorker(Long workerId) {
+    public List<CarDto> findCarsByWorker(Long workerId) {
         return carService.findCarsByWorker(workerService.findWorker(workerId));
     }
 
