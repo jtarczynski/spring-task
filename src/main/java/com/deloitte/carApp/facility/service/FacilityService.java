@@ -87,9 +87,9 @@ public class FacilityService {
         facilityRepository.deleteById(id);
     }
 
-    public List<WorkerDto> findAllFacilityWorkersByCar(Long carId) {
+    public List<WorkerDto> findAllFacilityWorkersByCar(Long facilityId, Long carId) {
         return facilityRepository
-                .findAllFacilityWorkersByCar(carService.findCar(carId))
+                .findAllFacilityWorkersByCar(findFacility(facilityId), carService.findCar(carId))
                 .stream()
                 .map(worker -> modelMapper.map(worker, WorkerDto.class))
                 .collect(Collectors.toList());

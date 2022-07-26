@@ -12,13 +12,16 @@ import java.util.List;
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
-    @Query("SELECT w FROM Facility f " +
-            "JOIN Worker w on w.facility = f " +
-            "WHERE ?1 MEMBER OF w.workerCars")
-    List<Worker> findAllFacilityWorkersByCar(Car car);
+    @Query("SELECT w FROM Worker w " +
+            "WHERE w.facility = ?1 AND " +
+            "?2 MEMBER OF w.workerCars")
+    List<Worker> findAllFacilityWorkersByCar(Facility facility, Car car);
 
-    @Query("SELECT w FROM Facility f " +
-            "JOIN Worker w on w.facility = ?1")
+    //    @Query("SELECT w FROM Facility f " +
+//            "JOIN Worker w on w.facility = f " +
+//            "WHERE w.facility = ?1")
+    @Query("SELECT w FROM Worker w " +
+            "WHERE w.facility = ?1")
     List<Worker> findAllFacilityWorkers(Facility facility);
 
 }

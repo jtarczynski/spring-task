@@ -5,18 +5,25 @@ VALUES (1, 'Mercedes', 'Suv', 'Black', '3.0', 10000, 2017),
        (4, 'Opel', 'Suv', 'Black', '1.4', 90000, 2015),
        (5, 'Mazda', 'Suv', 'Blue', '2.0', 86531, 2017);
 
-INSERT INTO HUMANS (ID, NAME, HUMAN_TYPE)
-VALUES (1, 'Human', 'WORKER'),
-       (2, 'Human2', 'WORKER'),
-       (3, 'Human3', 'WORKER'),
-       (4, 'Human4', 'WORKER'),
-       (5, 'Human5', 'CLIENT'),
-       (6, 'Human6', 'CLIENT');
+INSERT INTO FACILITIES (ID, PHONE_NUMBER)
+VALUES (1, 921-231-212),
+       (2, 312-231-212),
+       (3, 752-111-212),
+       (4, 900-231-653);
+
+INSERT INTO HUMANS (ID, NAME, HUMAN_TYPE, FACILITY_ID)
+VALUES (1, 'Human', 'WORKER', 1),
+       (2, 'Human2', 'WORKER', 1),
+       (3, 'Human3', 'WORKER', 2),
+       (4, 'Human4', 'WORKER', null),
+       (5, 'Human5', 'CLIENT', 3),
+       (6, 'Human6', 'CLIENT', 3);
 
 
 INSERT INTO WORKER_CAR (WORKER_ID, CAR_ID)
 VALUES (1, 1),
        (1, 2),
+       (2, 1),
        (2, 4),
        (3, 4);
 
@@ -44,8 +51,4 @@ VALUES (1, 1),
        (21, 2),
        (22, 3);
 
-INSERT INTO FACILITIES (ID, PHONE_NUMBER)
-VALUES ( 1, 921-231-212 ),
-       ( 2, 312-231-212 ),
-       ( 3, 752-111-212 ),
-       ( 4, 900-231-653 )
+

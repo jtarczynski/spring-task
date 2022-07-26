@@ -25,6 +25,10 @@ public class CarServiceTests {
     @Autowired
     private CarService carService;
 
+    /*
+        Problem with testing when returning Dto's
+     */
+
     @Test
     void shouldFindCarsByWorker() {
         Worker worker = Worker.builder().id(1L).build();

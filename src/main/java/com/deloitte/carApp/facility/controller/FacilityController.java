@@ -35,9 +35,10 @@ public class FacilityController {
         return ResponseEntity.ok(facilityService.findAllFacilityWorkers(facilityId));
     }
 
-    @GetMapping("car-id/{carId}/")
-    public ResponseEntity<List<WorkerDto>> getFacilityWorkersByCar(@PathVariable("carId") Long carId) {
-        return ResponseEntity.ok(facilityService.findAllFacilityWorkersByCar(carId));
+    @GetMapping("facility-id/{facilityId}/car-id/{carId}/")
+    public ResponseEntity<List<WorkerDto>> getFacilityWorkersByCar(@PathVariable("carId") Long carId,
+                                                                   @PathVariable("facilityId") Long facilityId) {
+        return ResponseEntity.ok(facilityService.findAllFacilityWorkersByCar(facilityId, carId));
     }
 
     @PutMapping("update-facility/facility-id/{facilityId}/")
